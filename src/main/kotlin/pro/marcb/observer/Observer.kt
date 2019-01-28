@@ -1,8 +1,8 @@
-package main.kotlin.pro.marcb.observer
+package pro.marcb.observer
 
 open class Observable<T>(value: T) {
 
-    protected val observers: MutableCollection<Observer<T>> = mutableListOf()
+    private val observers: MutableCollection<Observer<T>> = mutableListOf()
 
     open var value: T = value
         set(newValue) {
