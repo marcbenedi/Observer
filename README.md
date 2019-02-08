@@ -19,14 +19,29 @@
 * License
 
 ## Installation
+Add the JitPack repository to your build file
+```gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
 
-### Requirements
+Add the dependency
+```gradle
+dependencies {
+  implementation 'com.github.marcbenedi:Observer:1.0'
+}
+```
 
-### How to download it and install it
+See more instructions on [Jitpack](https://jitpack.io/#marcbenedi/Observer)
 
 ## Usage
 
 ## Built With
+[Kotlin](https://kotlinlang.org/)
 
 ## Contributing
 
@@ -44,7 +59,7 @@ See also the list of [contributors](https://github.com/marcbenedi/Observer/contr
 
 ## License
 
-This project is licensed under the Apache license 2.0 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache license 2.0 - see the [LICENSE.md](LICENSE) file for details
 
 ```
 Copyright (c) 2018 Marc Benedí
