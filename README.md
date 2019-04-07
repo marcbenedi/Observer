@@ -3,7 +3,24 @@
 [![](https://jitpack.io/v/marcbenedi/Observer.svg)](https://jitpack.io/#marcbenedi/Observer)
 
 ## Code example
-```cpp
+```kotlin
+//Create an Observable of a list
+val observable = Observable("Hello")
+
+//Create an Observer for this data
+val observer = Observer { newValue ->
+    println(newValue)
+}
+
+//Subscribe to the Observable
+observable.subscribe(observer)
+
+observable.value = "Hello World!"
+//The observer code will be executed and Hello World! will be printed
+
+//Don't forget to unsubscribe
+observable.unsubscribe(observer)
+
 ```
 
 ## Getting Started
