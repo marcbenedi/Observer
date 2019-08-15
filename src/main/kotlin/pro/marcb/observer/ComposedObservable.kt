@@ -10,7 +10,7 @@ class ComposedObservable<R>(private val sources: Map<String, Observable<Any>>,
         }
     }
 
-    override fun onUdate(element: Any) {
+    override fun onUpdate(element: Any) {
         value = build(sources)
     }
 }

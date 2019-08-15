@@ -1,25 +1,29 @@
 package pro.marcb.observer
 
-class ObservableSet<T>(initialSources: MutableSet<Observable<T>> = mutableSetOf()) : MutableSet<Observable<T>>,
+class ObservableSet<T>(initialSources: Set<Observable<T>> = setOf()) : MutableSet<Observable<T>>,
         Observer<T> {
 
     private val _set: MutableSet<Observable<T>> = initialSources.toMutableSet()
-    private val observers = mutableSetOf<SetObserver<T>>()
+    private val observers = mutableSetOf<CollectionObserver<T>>()
 
-    override fun onUdate(element: T) {
+    init {
+        _set.forEach { it.subscribe(this) }
+    }
+
+    override fun onUpdate(element: T) {
         val index = _set.map { it.value }.indexOf(element)
         observers.forEach {
             it.onUpdate(index, element)
         }
     }
 
-    fun subscribe(observer: SetObserver<T>) {
+    fun subscribe(observer: CollectionObserver<T>) {
         if (!observers.contains(observer)) {
             observers.add(observer)
         }
     }
 
-    fun unsubscribe(observer: SetObserver<T>) {
+    fun unsubscribe(observer: CollectionObserver<T>) {
         observers.remove(observer)
     }
 
@@ -27,10 +31,6 @@ class ObservableSet<T>(initialSources: MutableSet<Observable<T>> = mutableSetOf(
         val added = _set.add(element)
         if (added) {
             element.subscribe(this)
-        }
-        val index = _set.indexOf(element)
-        observers.forEach {
-            it.onUpdate(index, element.value)
         }
         return added
     }
@@ -65,8 +65,4 @@ class ObservableSet<T>(initialSources: MutableSet<Observable<T>> = mutableSetOf(
     override fun contains(element: Observable<T>): Boolean = _set.contains(element)
     override fun containsAll(elements: Collection<Observable<T>>): Boolean = _set.containsAll(elements)
     override fun isEmpty(): Boolean = _set.isEmpty()
-}
-
-interface SetObserver<T> {
-    fun onUpdate(index: Int, element: T)
 }
